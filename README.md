@@ -60,4 +60,3 @@ python bot.py
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-You can copy and paste the entire code block as your README file.
