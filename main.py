@@ -3,11 +3,12 @@ from discord.ext import commands
 import datetime
 from pytz import timezone
 from keep_alive import keep_alive
-from os import environ
 import asyncio
 import json
 import os
+from os import environ
 import sys
+import psutil
 
 # Setting up intents
 intents = discord.Intents.default()
@@ -45,6 +46,7 @@ async def on_ready():
 # Command: Uptime
 @bot.command()
 async def uptime(ctx):
+    """Displays the bot's uptime."""
     uptime = datetime.datetime.now() - start_time
     days = uptime.days
     hours, remainder = divmod(uptime.seconds, 3600)
@@ -57,6 +59,7 @@ async def uptime(ctx):
 # Command: Whois
 @bot.command()
 async def whois(ctx, mention: discord.Member = None):
+    """Shows information about a user (defaults to the author if no mention)."""
     if not mention:
         mention = ctx.author
 
@@ -77,13 +80,21 @@ async def whois(ctx, mention: discord.Member = None):
 # Command: Restart the bot
 @bot.command()
 async def restart(ctx):
+    """Restarts the bot. Only usable by the bot owner."""
     if ctx.author == bot.user:
+        print("Restart has been started.")
         message = await ctx.send("`Restarting... This may take a while.`")
         await asyncio.sleep(10)
         await ctx.message.delete()
         await message.delete()
 
-        await asyncio.sleep(20)
+        countdown = 20
+        while countdown > 0:
+            print(f"Rebooting in {countdown} seconds...")
+            await asyncio.sleep(1)
+            countdown -= 1
+
+        print("Rebooting...")
         await bot.logout()
         await bot.close()
         os.execl(sys.executable, sys.executable, *sys.argv)
@@ -91,20 +102,29 @@ async def restart(ctx):
 # Command: Stop the bot
 @bot.command()
 async def stop(ctx):
+    """Stops the bot. Only usable by the bot owner."""
     if ctx.author == bot.user:
+        print("Stop has been initiated.")
         message = await ctx.send("`Stopping... This may take a while.`")
         await asyncio.sleep(10)
         await ctx.message.delete()
         await message.delete()
 
-        await asyncio.sleep(20)
+        countdown = 20
+        while countdown > 0:
+            print(f"Stopping in {countdown} seconds...")
+            await asyncio.sleep(1)
+            countdown -= 1
+
+        print("Stopping...")
         await bot.logout()
         await bot.close()
         os._exit(0)
 
-# Command: Time
+# Command: Date
 @bot.command()
 async def date(ctx):
+    """Displays the current date and time in a specific timezone."""
     current_time = datetime.datetime.now(timezone('Africa/Tunis'))
     day = current_time.day
     month = current_time.month
@@ -117,6 +137,7 @@ async def date(ctx):
 
 @bot.command()
 async def ping(ctx):
+    """Displays the bot's latency."""
     start_time = datetime.datetime.now()
 
     # Send a message and calculate the bot's latency
@@ -134,6 +155,7 @@ async def ping(ctx):
 
 @bot.command()
 async def seta(ctx, activity_type: str, *, activity_name: str):
+    """Changes the bot's activity."""
     valid_types = ["playing", "listening"]
 
     if activity_type.lower() not in valid_types:
@@ -155,27 +177,27 @@ async def seta(ctx, activity_type: str, *, activity_name: str):
     await ctx.message.delete()
     await message.delete()
 
-# Event: Bot mentions
-last_mention_time = datetime.datetime.now()
+# Command: Record CPU and memory usage
+@bot.command()
+async def rec(ctx):
+    """Records CPU and memory usage for a specified duration."""
+    duration = 60  # Duration to display the results (in seconds)
+    interval = 1  # Interval between updates (in seconds)
 
-@bot.event
-async def on_message(message):
-    global last_mention_time
+    message = await ctx.send("`Recording CPU and memory usage...`")
+    end_time = datetime.datetime.now() + datetime.timedelta(seconds=duration)
 
-    if bot.user.mentioned_in(message):
-        current_time = datetime.datetime.now()
-        time_diff = current_time - last_mention_time
+    while datetime.datetime.now() < end_time:
+        cpu_usage = psutil.cpu_percent(interval=1)
+        memory_usage = psutil.virtual_memory().percent
 
-        if time_diff.total_seconds() > 50:  # Check if enough time has passed since the last mention
-            response = "Apologies, but I am currently occupied. Please send me a DM and I'll get back to you ASAP."
-            reply = await message.channel.send(response)
-            last_mention_time = current_time
+        await message.edit(content=f"CPU Usage: `{cpu_usage}%` | Memory Usage: `{memory_usage}%`")
+        await asyncio.sleep(interval)
 
-            await asyncio.sleep(20)
-            await reply.delete()
-
-    await bot.process_commands(message)
-
+    await message.edit(content=f"`Recording complete.`")
+    await asyncio.sleep(10)
+    await ctx.message.delete()
+    await message.delete()
 
 # Keep the bot alive
 keep_alive()
