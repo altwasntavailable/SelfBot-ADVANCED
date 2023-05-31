@@ -1,4 +1,4 @@
-# Discord Bot
+# Discord SelfBot
 
 This is a Discord bot implemented using the discord.py library. The bot has various commands and events to perform actions in a Discord server.
 
