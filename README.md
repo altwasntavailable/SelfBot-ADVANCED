@@ -18,7 +18,7 @@ pip install -r requirements.txt
 3. Create a file named `.env` in the project directory and add the following line to it:
 token=YOUR_DISCORD_BOT_TOKEN
 
-Replace `token` with your Discord bot token. If you don't have a bot token, you can create a bot and obtain the token from the Discord Developer Portal.
+Replace `YOUR_DISCORD_BOT_TOKEN` with your Discord bot token. If you don't have a bot token, you can create a bot and obtain the token from the Discord Developer Portal.
 
 ## Usage
 
