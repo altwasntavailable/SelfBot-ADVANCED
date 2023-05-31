@@ -26,7 +26,7 @@ This is a Discord bot implemented using the Discord.py library. The bot performs
 1. Clone the repository or download the code files.
 2. Install the required dependencies by running `pip install -r requirements.txt`.
 3. Create a Discord bot and obtain the bot token from the [Discord Developer Portal](https://discord.com/developers/applications).
-4. Set the bot token as an environment variable named `token`.
+4. Set the bot token as an environment variable named `token`. (See instructions below on how to obtain your Discord token)
 5. Optionally, modify the code to customize the bot's behavior and commands.
 6. If you want the bot to automatically connect to a voice channel on startup:
    - Update the `data.json` file with the desired guild ID and channel ID.
@@ -54,3 +54,17 @@ For command requests or additional assistance, you can contact me on Discord: AL
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## How to Obtain Your Discord Token
+
+To obtain your Discord token, you can follow these steps:
+
+1. Open Discord in your web browser and log into your account.
+2. Right-click anywhere on the Discord web page and select "Inspect" or "Inspect Element" from the context menu. This will open the browser's Developer Tools.
+3. In the Developer Tools window, locate the "Network" tab.
+4. Refresh the Discord web page to capture the network requests.
+5. Look for a request with the name "science" or "gateway" in the "Name" column. Click on it.
+6. In the "Headers" section of the selected request, find the "Authorization" header.
+7. The value next to the "Authorization" header is your Discord account token. It will be a long string of characters.
+
+Remember to keep your Discord token private and secure. Do not share it with anyone, as it provides full access to your Discord account.
