@@ -16,7 +16,7 @@ This is a powerful Discord SelfBot implemented using the Discord.py library. The
 - **Record**: Records CPU and memory usage for a specified duration.
 - **Voice Channel Connection**: Automatically connects to a specified voice channel on startup if the guild ID and channel ID are provided in the `data.json` file.
 - **Dataset**: Edits the `data.json` file with new guild and channel IDs and restarts the bot.
-- **Delete**: Deletes a specified number of it's own messages from the current channel.
+- **Clear**: Deletes a specified number of it's own messages from the current channel.
 - **Stat**: Changes the bot's status to the specified status.
 
 ## Prerequisites
