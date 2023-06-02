@@ -7,14 +7,17 @@ This is a powerful Discord SelfBot implemented using the Discord.py library. The
 ## Features
 
 - **Uptime**: Displays the bot's uptime.
-- **Whois**: Shows detailed information about a user.
+- **Whois**: Shows information about a user.
 - **Restart**: Restarts the bot.
-- **Stop**: Stops the bot gracefully.
+- **Stop**: Stops the bot.
 - **Date**: Displays the current date and time in a specific timezone.
-- **Ping**: Measures and displays the bot's latency.
-- **Set Activity**: Changes the bot's activity to showcase different statuses.
-- **Record**: Monitors and records CPU and memory usage for a specified duration.
+- **Ping**: Displays the bot's latency.
+- **Set Activity**: Changes the bot's activity.
+- **Record**: Records CPU and memory usage for a specified duration.
 - **Voice Channel Connection**: Automatically connects to a specified voice channel on startup if the guild ID and channel ID are provided in the `data.json` file.
+- **Dataset**: Edits the `data.json` file with new guild and channel IDs and restarts the bot.
+- **Delete**: Deletes a specified number of it's own messages from the current channel.
+- **Stat**: Changes the bot's status to the specified status.
 
 ## Prerequisites
 
@@ -31,7 +34,7 @@ To set up the Discord SelfBot-ADVANCED, follow these steps:
 
 1. Clone the repository or download the code files.
 2. Install the required dependencies by running `pip install -r requirements.txt`.
-3. Create a Discord bot and obtain the bot token from the [Discord Developer Portal](https://discord.com/developers/applications).
+3. Get your discord account token.
 4. Set the bot token as an environment variable named `token`. (See instructions below on how to obtain your Discord token)
 5. Optionally, modify the code to customize the bot's behavior and commands.
 6. If you want to host the bot 24/7 on Replit, follow these additional steps:
